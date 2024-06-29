@@ -16,7 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from autorization.views import redirect, index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('autorization/', index),
+    path('', redirect)
 ]
