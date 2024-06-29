@@ -1,10 +1,11 @@
+from nondjmodules.getter import Binder
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 class API:
 
-	def __init__(self, getter:object=None):
-		self._get = getter # TODO
+	def __init__(self, getter:Binder=Binder()):
+		self._get = getter
 
 	def _validate_auth(self, data:dict) -> bool:
 		try:

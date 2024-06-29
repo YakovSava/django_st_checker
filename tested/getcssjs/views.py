@@ -1,18 +1,10 @@
+from nondjmodules.getter import Binder
 
+class GET:
 
-class CSS:
+	def __init__(self, getter:Binder=Binder()):
+		self._get = getter
 
-	def __init__(self, getter:object):
-		self._get = getter # TODO
-
-	def getfile(self, site_path:str) -> str:
-		return self._get.read('hmtl/'+site_path.split('/')[-1])
-
-
-class JS:
-
-	def __init__(self, getter:object):
-		self._get = getter # TODO
-
-	def getfile(self, site_path:str) -> str:
-		return self._get.read('hmtl/'+site_path.split('/')[-1])
+	def getfile(self, request, site_path:str) -> str:
+		print('html/'+site_path)
+		return self._get.read('html/'+site_path)

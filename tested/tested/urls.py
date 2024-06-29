@@ -18,12 +18,15 @@ from django.contrib import admin
 from django.urls import path
 from autorization.views import redirect, index
 from api.views import API
+from getcssjs.views import GET
 
-api_module = API() # TODO
+api_module = API()
+get_module = GET()
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('autorization/', index),
     path('', redirect),
-    path('api/auth', api_module.auth)
+    path('autorization/', index),
+    path('api/auth', api_module.auth),
+    path('autorization/<str:site_path>', get_module.getfile),
 ]
