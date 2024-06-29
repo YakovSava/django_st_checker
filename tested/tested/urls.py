@@ -17,9 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from autorization.views import redirect, index
+from api.views import API
+
+api_module = API() # TODO
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('autorization/', index),
-    path('', redirect)
+    path('', redirect),
+    path('api/auth', api_module.auth)
 ]
