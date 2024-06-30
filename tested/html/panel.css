@@ -1,0 +1,85 @@
+body {
+    background-color: #b4e7da; /* Фон страницы */
+}
+
+.container {
+    width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    display: flex; /* Размещаем элементы шапки в ряд */
+    justify-content: space-between; /* Равномерное распределение элементов по горизонтали */
+    align-items: center; /* Вертикальное выравнивание элементов по центру */
+    margin-bottom: 20px;
+}
+
+.status {
+    font-size: 18px;
+    font-weight: bold;
+    color: #afafaf; /* Цвет статуса */
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    width:100%;
+    text-align: center;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.companies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: calc(100% - 40px);
+    margin-left: 40px;
+}
+
+.company {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: calc(90% - 20px);
+}
+
+.company-info {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.company-name {
+    text-align: center;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.employee-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: center; /* Центрируем текст внутри карточки */
+}
+
+.employee-credentials {
+    margin-top: 10px; /* Добавляем отступ сверху между именем и логином/паролем */
+}
+
+.employee-login-label,
+.employee-password-label {
+    display: inline-block;
+    margin-right: 5px; /* Добавляем отступ между меткой и значением */
+}

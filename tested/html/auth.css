@@ -1,57 +1,68 @@
-body {
-    font-family: sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #B4E7DA;
-}
-
 .container {
-    width: 400px;
-    margin: 50px auto;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
     padding: 20px;
-    background-color: #afafaf;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #b4e7da; /* Фон страницы */
 }
 
-h1 {
-    text-align: center;
+.header {
+    display: flex; /* Размещаем элементы шапки в ряд */
+    justify-content: space-between; /* Равномерное распределение элементов по горизонтали */
+    align-items: center; /* Вертикальное выравнивание элементов по центру */
     margin-bottom: 20px;
 }
 
-form {
+.status {
+    font-size: 18px;
+    font-weight: bold;
+    color: #afafaf; /* Цвет статуса */
+}
+
+.buttons {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: flex-end; /* Размещаем кнопки справа */
+    margin-bottom: 20px;
 }
 
-label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-input[type="text"],
-input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
-
-button {
-    background-color: #007bff;
-    color: #fff;
+.btn {
     padding: 10px 20px;
-    border: none;
+    border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #0056b3;
+.companies {
+    display: flex;
+    flex-wrap: wrap; /* Размещение карточек в несколько строк */
+    gap: 20px;
+    width: calc(100% - 40px); /* Расширяем карточки на всю ширину, за исключением отступов */
+    margin-left: 40px; /* Добавляем отступ слева, чтобы карточки начинались после кнопок */
+}
+
+.company {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    width: calc(50% - 20px); /* Ширина карточки 50% за вычетом отступов */
+}
+
+.company-info {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.employee {
+    margin-bottom: 10px;
+}
+
+.employee-name {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.employee-login,
+.employee-password {
+    display: inline-block;
+    margin-right: 10px;
 }

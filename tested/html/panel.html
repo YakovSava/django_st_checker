@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Администрирование</title>
+    <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="status">Статус: {{ status }}</span>
+        </div>
+        {{ buttons }}
+        <div class="companies">
+            <div class="company">
+                <div class="company-info">
+                    <span class="company-name">ИП Иванов И.И.</span>
+                </div>
+                <div class="employees">
+                    <div class="employee-card">
+                        <span class="employee-name">Работник один</span>
+                        <div class="employee-credentials">
+                            <span class="employee-login-label">Логин:</span>
+                            <span class="employee-login">Логин1</span>
+                            <br>
+                            <span class="employee-password-label">Пароль:</span>
+                            <span class="employee-password">пароль1</span>
+                        </div>
+                    </div>
+                    <div class="employee-card">
+                        <span class="employee-name">Работник два</span>
+                        <div class="employee-credentials">
+                            <span class="employee-login-label">Логин:</span>
+                            <span class="employee-login">Логин2</span>
+                            <br>
+                            <span class="employee-password-label">Пароль:</span>
+                            <span class="employee-password">пароль2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="company">
+                <div class="company-info">
+                    <span class="company-name">ООО "Лег"</span>
+                </div>
+                <div class="employees">
+                    <div class="employee-card">
+                        <span class="employee-name">Работник один</span>
+                        <div class="employee-credentials">
+                            <span class="employee-login-label">Логин:</span>
+                            <span class="employee-login">Логин1</span>
+                            <br>
+                            <span class="employee-password-label">Пароль:</span>
+                            <span class="employee-password">пароль1</span>
+                        </div>
+                    </div>
+                    <div class="employee-card">
+                        <span class="employee-name">Работник два</span>
+                        <div class="employee-credentials">
+                            <span class="employee-login-label">Логин:</span>
+                            <span class="employee-login">Логин2</span>
+                            <br>
+                            <span class="employee-password-label">Пароль:</span>
+                            <span class="employee-password">пароль2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</body>
+</html>
