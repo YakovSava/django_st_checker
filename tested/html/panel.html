@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Администрирование</title>
+    <title>Здравствуйте {{ status }}</title>
     <link rel="stylesheet" href="panel.css">
 </head>
 <body>
@@ -11,62 +11,32 @@
         <div class="header">
             <span class="status">Статус: {{ status }}</span>
         </div>
+        {% autoescape off %}
         {{ buttons }}
+        {% endautoescape %}
         <div class="companies">
-            <div class="company">
+            {% for company in company_list %}
+                <div class="company">
                 <div class="company-info">
-                    <span class="company-name">ИП Иванов И.И.</span>
+                    <span class="company-name">{{ company.name }}</span>
                 </div>
+                {% for worker in company.workers %}
                 <div class="employees">
                     <div class="employee-card">
-                        <span class="employee-name">Работник один</span>
+                        <span class="employee-name">{{ worker.name }}</span>
                         <div class="employee-credentials">
                             <span class="employee-login-label">Логин:</span>
-                            <span class="employee-login">Логин1</span>
+                            <span class="employee-login">{{ worker.login }}</span>
                             <br>
                             <span class="employee-password-label">Пароль:</span>
-                            <span class="employee-password">пароль1</span>
-                        </div>
-                    </div>
-                    <div class="employee-card">
-                        <span class="employee-name">Работник два</span>
-                        <div class="employee-credentials">
-                            <span class="employee-login-label">Логин:</span>
-                            <span class="employee-login">Логин2</span>
-                            <br>
-                            <span class="employee-password-label">Пароль:</span>
-                            <span class="employee-password">пароль2</span>
+                            <span class="employee-password">{{ worker.password }}</span>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-            <div class="company">
-                <div class="company-info">
-                    <span class="company-name">ООО "Лег"</span>
-                </div>
-                <div class="employees">
-                    <div class="employee-card">
-                        <span class="employee-name">Работник один</span>
-                        <div class="employee-credentials">
-                            <span class="employee-login-label">Логин:</span>
-                            <span class="employee-login">Логин1</span>
-                            <br>
-                            <span class="employee-password-label">Пароль:</span>
-                            <span class="employee-password">пароль1</span>
-                        </div>
-                    </div>
-                    <div class="employee-card">
-                        <span class="employee-name">Работник два</span>
-                        <div class="employee-credentials">
-                            <span class="employee-login-label">Логин:</span>
-                            <span class="employee-login">Логин2</span>
-                            <br>
-                            <span class="employee-password-label">Пароль:</span>
-                            <span class="employee-password">пароль2</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
+        </div>
     </div>
 </body>
 </html>
