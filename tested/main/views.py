@@ -11,3 +11,6 @@ class MAIN:
 
 	def worker(self, request):
 		return render(request, 'panel.html', context=self._con.worker())
+
+	def questions(self, request):
+		return render(request, 'quest.html')
