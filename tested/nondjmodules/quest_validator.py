@@ -1,3 +1,5 @@
+from string import ascii_letters
+from random import randint, choice
 from time import strptime
 
 class Validator:
@@ -5,9 +7,14 @@ class Validator:
 	def __init__(self, answers:list[str]):
 		self._q = answers
 
+	def _get_session_uuid(self) -> str:
+		return "".join(f'{choice(ascii_letters)}{randint(10, 100)}' for _ in range(randint(3, 5)))
+
+	def _get_login(self) -> str:
+		return "".join(f'{choice(ascii_letters)}' for _ in range(randint(10, 15)))+str(randint(10, 100))
+
 	def _validate_date(self, date:str) -> bool:
 		try:
-			print(date)
 			strptime(date, '%d.%m.%Y')
 		except:
 			return False
@@ -22,7 +29,7 @@ class Validator:
 	def _validate_company(self, company_name:str) -> bool:
 		if (company_name.startswith('ИП')):
 			return self._validate_name(company_name.split(maxsplit=1)[-1])
-		return company_name.startswith(('ООО', 'ЗАО', 'ОАО'))
+		return company_name.startswith(('ООО', 'ЗАО', 'ОАО', 'РАО', 'ПАО', 'НПО'))
 
 	def _validate_reason(self, reason:str) -> bool:
 		return reason.lower() in [
@@ -86,3 +93,23 @@ class Validator:
 		for_js += '' if result[14] else 'Ошибка в №15: Введите только "I" или "II" или "III"<br>'
 		for_js += '' if result[15] else 'Ошибка в №16: Введите исключительно число!<br>'
 		return for_js
+
+	def for_db(self) -> dict:
+		return {
+			'name': self._q[0],
+			'company': self._q[2],
+			'session': self._get_session_uuid(),
+			'is_admin': False,
+			'login': self._get_login(),
+			'password': self._get_session_uuid()
+		}
+
+	def for_db_admin(self) -> dict:
+		return {
+			'name': self._q[0],
+			'company': self._q[2],
+			'session': self._get_session_uuid(),
+			'is_admin': True,
+			'login': self._get_login(),
+			'password': self._get_session_uuid()
+		}

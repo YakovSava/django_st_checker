@@ -5,4 +5,4 @@ def index(request):
 	return render(request, "auth.html")
 
 def redirect(request):
-	return HttpResponsePermanentRedirect('autorize')
+	return HttpResponsePermanentRedirect('autorization/')

@@ -2,6 +2,7 @@ from urllib.parse import unquote
 from json import dumps
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from main.models import Users
 from nondjmodules.quest_validator import Validator
 
 def json_resp(dictionary:dict) -> str:
@@ -9,8 +10,8 @@ def json_resp(dictionary:dict) -> str:
 
 class API:
 
-	def __init__(self):
-		pass
+	def __init__(self, database:Users=Users):
+		self._db = database
 
 	def _validate_auth(self, data:dict) -> bool:
 		try:
@@ -36,9 +37,18 @@ class API:
 	def result(self, request) -> HttpResponse:
 		if request.method != 'GET':
 			return HttpResponse('ERROR')
-		print(request.GET['data'])
 		validator_object = Validator(self._to_normal(request.GET['data']))
 		if all(validator_object.validate()):
+			answer_for_db = validator_object.for_db()
+			new_company = self._db(
+				name=answer_for_db['name'],
+				company=answer_for_db['company'],
+				session=answer_for_db['session'],
+				is_admin=answer_for_db['is_admin'],
+				login=answer_for_db['login'],
+				password=answer_for_db['password']
+			)
+			new_company.save()
 			return json_resp({'result': True})
 		else:
 			return json_resp({'result': False, 'error': validator_object.where()})
