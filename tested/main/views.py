@@ -10,7 +10,7 @@ class MAIN:
 		return render(request, 'panel.html', context=self._con.admin())
 
 	def worker(self, request):
-		return render(request, 'panel.html', context=self._con.worker())
+		return render(request, 'panel.html', context=self._con.worker(request.GET['session']))
 
 	def questions(self, request):
 		return render(request, 'quest.html')

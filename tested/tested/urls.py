@@ -30,5 +30,6 @@ urlpatterns = [
     path('api/auth', api_module.auth),
     path('admin/', main_module.admin),
     path('quest/', main_module.questions),
-    path('api/result', api_module.result)
+    path('api/result', api_module.result),
+    path('worker/', main_module.worker)
 ]

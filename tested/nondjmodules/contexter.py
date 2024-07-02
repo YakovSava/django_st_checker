@@ -2,10 +2,14 @@ from main.models import Users
 
 class Contexter:
 	ADMIN_BUTTONS = '''<div class="buttons">
-			<button class="btn">Добавить отчёт</button>
-			<button class="btn">Дать доступ</button>
-			<button class="btn">Удалить компанию</button>
+			<button class="btn" onclick="adminDownload().then();">Скачать отчёт</button>
+			<button class="btn" onclick="toQuest();">Пройти опросник</button>
+			<button class="btn" onclick="removeCompany();">Удалить компанию</button>
 		</div>'''
+	WORKER_BUTTONS = '''<div class="buttons">
+			<button class="btn" onclick="downloadDocument().then();">Скачать документ</button>
+		</div>'''
+
 
 	def __init__(self, database:Users=Users):
 		self._db = database
@@ -28,5 +32,20 @@ class Contexter:
 			]
 		}
 
-	def worker(self):
-		raise NotImplemented
+	def worker(self, session:str):
+		worker_data = self._db.objects.filter(session=session)[0]
+		return {
+			"status": worker_data.name,
+			"buttons": self.WORKER_BUTTONS,
+			"company_list": [
+				{
+					"name": worker_data.company,
+					"workers": [{
+							"name": worker_data.name,
+							"login": worker_data.login,
+							"password": worker_data.password
+						}
+					]
+				}
+			]
+		}
