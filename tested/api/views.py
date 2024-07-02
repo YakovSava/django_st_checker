@@ -1,5 +1,5 @@
 from urllib.parse import unquote
-from json import dumps
+from json import dumps, loads
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from main.models import Users
@@ -14,24 +14,47 @@ class API:
 		self._db = database
 
 	def _validate_auth(self, data:dict) -> bool:
+		print(data)
 		try:
-			data['login'], data['password']
+			data['login'], data['passwd']
 		except:
-			return False
-		return True
+			return {
+				'result': False,
+				'reason': 'Внутреняя ошибка!'
+			}
+		user = self._db.objects.filter(login=data['login'])
+		if len(user) == 1:
+			if data['passwd'] == user[0].password:
+				return {
+					'result': True,
+					'session': user[0].session
+				}
+			else:
+				return {
+					'result': False,
+					'reason': 'Неверный пароль'
+				}
+		else:
+			return {
+				'result': False,
+				'reason': 'Неверный логин'
+			}
 
 	def _to_normal(self, string:str) -> str:
 		return eval('["'+unquote(string).replace(',', '","')+'"]')
 
+	def _to_normal_json(self, data) -> dict:
+		return loads(unquote(data['data']))
+
 	@csrf_exempt
 	def auth(self, request) -> HttpResponse:
-		if request.method != 'POST':
+		if request.method != 'GET':
 			return HttpResponse('ERROR')
-		#print(request.POST.get('login'), request.POST.get('password '))
-		if self._validate_auth(request.POST):
-			return HttpResponse('{"response": true}') # TODO
+		validates = self._validate_auth(self._to_normal_json(request.GET))
+		if validates['result']:
+			return json_resp({'result': True, 'session': validates['session']})
 		else:
-			return HttpResponse('{"error": "No data"}')
+			return json_resp({'result': False, 'reason': validates['reason']})
 
 	@csrf_exempt
 	def result(self, request) -> HttpResponse:

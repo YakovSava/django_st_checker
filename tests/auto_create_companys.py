@@ -61,23 +61,14 @@ def main(driver):
 	while True:
 
 		driver.get(url=url)
-		sleep(1)
 
 		for item in generate_lst():
 			universal_input = driver.find_element(By.ID, "answer-input")
 			universal_input.send_keys(item)
-			sleep(0.1)
 
 			universal_button = driver.find_element(By.ID, 'submit-button')
 			universal_button.click()
 			sleep(0.1)
-		sleep(12)
-		if exsist_element(driver, "answer-input"):
-			print(f'Create fail. Fails: {fail}')
-			fail += 1
-		else:
-			print(f'Good create. Goods: {good}')
-			good += 1
 
 if __name__ == '__main__':
 	try:
