@@ -17,3 +17,4 @@ class Company(models.Model):
 	number_of_driver_program = models.CharField(max_length=1)
 	electrical_safety_group = models.CharField(max_length=3)
 	work_exp = models.CharField(max_length=2)
+	session = models.TextField(blank=False)

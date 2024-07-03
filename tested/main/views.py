@@ -24,8 +24,9 @@ class MAIN:
 	def universal(self, request):
 		_tmp = CompanyData.objects.filter(company_admin=request.GET['session'])
 		if len(_tmp) == 1:
+			print(_tmp[0].is_super_admin)
 			if _tmp[0].is_super_admin:
-				return self.super_admin(request)
+				return self.superadmin(request)
 			return self.admin(request)
 		else:
 			return self.worker(request)

@@ -7,7 +7,7 @@ async function check(data) {
 	console.log(response);
 
 	if (response['result']) {
-		window.location.replace(`/worker?session=${response['session']}`);
+		window.location.replace(`/panel?session=${response['session']}`);
 	} else {
 		alert(response['reason']);
 	}

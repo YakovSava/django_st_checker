@@ -6,9 +6,10 @@ class Contexter:
 			<button class="btn" onclick="toQuest();">Пройти опросник</button>
 			<button class="btn" onclick="removeCompany();">Удалить компанию</button>
 		</div>'''
-	ADMIN_BUTTONS = '''div class="buttons">
+	ADMIN_BUTTONS = '''<div class="buttons">
 			<button class="btn" onclick="downloadAllCompany().then();">Скачать все документы</button>
-			<button class="btn" onclick="toQuest();">Пройти опросник</button>'''
+			<button class="btn" onclick="toQuest();">Пройти опросник</button>
+		</div>'''
 	WORKER_BUTTONS = '''<div class="buttons">
 			<button class="btn" onclick="downloadDocument().then();">Скачать документ</button>
 		</div>'''
@@ -42,7 +43,7 @@ class Contexter:
 			"buttons": self.ADMIN_BUTTONS,
 			"company_list": [
 				{
-					"name": worker.company,
+					"name": admin_data.company,
 					"workers": [{
 							"name": worker.name,
 							"login": worker.login,

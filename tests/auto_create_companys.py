@@ -7,7 +7,7 @@ from selenium.webdriver.common.by import By
 fake = Faker('ru_RU')
 url = "http://127.0.0.1:8000/quest/"
 
-companys = ['РАО «Боброва, Щербаков и Миронова»', 'НПО «Зимин»', 'ОАО «Якушева Кулакова»', 'ООО «Лазарева»', 'ЗАО «Афанасьева»']
+companys = ['РАО «Боброва Щербаков и Миронова»', 'НПО «Зимин»', 'ОАО «Якушева Кулакова»', 'ООО «Лазарева»', 'ЗАО «Афанасьева»']
 
 def generator_dict() -> dict:
 	return {
@@ -65,11 +65,11 @@ def main(driver):
 			universal_button = driver.find_element(By.ID, 'submit-button')
 			universal_button.click()
 			sleep(0.1)
+		# return
 
 if __name__ == '__main__':
 	try:
-		for _ in range(3):
-			driver = webdriver.Firefox()
-			main(driver)
+		driver = webdriver.Firefox()
+		main(driver)
 	except KeyboardInterrupt:
 		driver.close()

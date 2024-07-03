@@ -16,7 +16,6 @@ class API:
 		self._db = database
 
 	def _validate_auth(self, data:dict) -> bool:
-		print(data)
 		try:
 			data['login'], data['passwd']
 		except:
@@ -50,14 +49,16 @@ class API:
 
 	def _create_company(self, company_name:str, company_admin:str) -> None:
 		_tmp = CompanyData.objects.values('company_name').distinct()
+		print(list(map(lambda x: x['company_name'], _tmp)))
 		if company_name not in map(lambda x: x['company_name'], _tmp):
 			new_company = CompanyData(
 				company_name=company_name,
 				company_admin=company_admin,
 				is_super_admin=False,
 			)
+			new_company.save()
 
-	def _to_db(self, data:list) -> None:
+	def _to_db(self, data:list, session:str) -> None:
 		new_rec = Company(
 			fcs=data[0],
 			date=data[1],
@@ -74,7 +75,8 @@ class API:
 			status=data[12],
 			number_of_driver_program=data[13],
 			electrical_safety_group=data[14],
-			work_exp=data[15]
+			work_exp=data[15],
+			session=session
 		)
 		new_rec.save()
 
@@ -94,8 +96,8 @@ class API:
 			return HttpResponse('ERROR')
 		validator_object = Validator(self._to_normal(request.GET['data']))
 		if all(validator_object.validate()):
-			self._to_db(validator_object.return_data())
 			answer_for_db = validator_object.for_db()
+			self._to_db(validator_object.return_data(), answer_for_db['session'])
 			self._create_company(answer_for_db['company'], answer_for_db['session'])
 			new_company = self._db(
 				name=answer_for_db['name'],
