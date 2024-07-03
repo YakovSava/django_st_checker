@@ -1,11 +1,12 @@
 from urllib.parse import unquote
 from json import dumps, loads
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 from django.views.decorators.csrf import csrf_exempt
 from main.models import Users
 from api.models import Company
 from autorization.models import Company as CompanyData
 from nondjmodules.quest_validator import Validator
+from nondjmodules.
 
 def json_resp(dictionary:dict) -> str:
 	return HttpResponse(dumps(dictionary))
@@ -114,3 +115,4 @@ class API:
 	@csrf_exempt
 	def get_doc(self, request):
 		return json_resp({'result': False}) # TODO
+		if request.GET['session']
