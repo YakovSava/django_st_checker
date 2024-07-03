@@ -7,9 +7,11 @@ from selenium.webdriver.common.by import By
 fake = Faker('ru_RU')
 url = "http://127.0.0.1:8000/quest/"
 
+companys = ['РАО «Боброва, Щербаков и Миронова»', 'НПО «Зимин»', 'ОАО «Якушева Кулакова»', 'ООО «Лазарева»', 'ЗАО «Афанасьева»']
+
 def generator_dict() -> dict:
 	return {
-		"company": fake.company,
+		"company": lambda: choice(companys),
 		"jobs": fake.job,
 		"name": fake.name,
 		"rom_num": lambda: "I"*randint(1, 3),
@@ -19,18 +21,12 @@ def generator_dict() -> dict:
 		"job": lambda: choice(['водитель','машинист крана-манипулятора','машинист крана автомобильного','машинист  автогидроподъемника','машинист экскаватора-погрузчика',])
 	}
 
-def generate_only_company(fun) -> str:
-	while True:
-		name = fun()
-		if name.startswith(('ООО', 'ЗАО', 'ОАО', 'РАО', 'ПАО', 'НПО')):
-			return name
-
 def generate_lst() -> list:
 	gd = generator_dict()
 	return [
 		gd['name'](),
 		gd['date'](),
-		generate_only_company(gd['company']),
+		gd['company'](),
 		gd['name'](),
 		gd['jobs'](),
 		gd['name'](),
@@ -72,7 +68,8 @@ def main(driver):
 
 if __name__ == '__main__':
 	try:
-		driver = webdriver.Firefox()
-		main(driver)
+		for _ in range(3):
+			driver = webdriver.Firefox()
+			main(driver)
 	except KeyboardInterrupt:
 		driver.close()

@@ -113,3 +113,6 @@ class Validator:
 			'login': self._get_login(),
 			'password': self._get_session_uuid()
 		}
+
+	def return_data(self):
+		return self._q
