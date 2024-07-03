@@ -1,12 +1,16 @@
+from os import mkdir, rmdir, remove, listdir
+from os.path import exists
 from urllib.parse import unquote
 from json import dumps, loads
+from shutil import copy
 from django.http import HttpResponse, FileResponse
 from django.views.decorators.csrf import csrf_exempt
 from main.models import Users
 from api.models import Company
 from autorization.models import Company as CompanyData
 from nondjmodules.quest_validator import Validator
-from nondjmodules.
+from nondjmodules.former import Document
+from nondjmodules.zipper import zip_path
 
 def json_resp(dictionary:dict) -> str:
 	return HttpResponse(dumps(dictionary))
@@ -15,6 +19,8 @@ class API:
 
 	def __init__(self, database:Users=Users):
 		self._db = database
+		if not exists('tmp/'):
+			mkdir('tmp/')
 
 	def _validate_auth(self, data:dict) -> bool:
 		try:
@@ -114,5 +120,42 @@ class API:
 
 	@csrf_exempt
 	def get_doc(self, request):
-		return json_resp({'result': False}) # TODO
-		if request.GET['session']
+		if request.GET['session']:
+			_tmp = CompanyData.objects.filter(company_admin=request.GET['session'])
+			if len(_tmp) == 1:
+				# if _tmp[0].is_super_admin:
+				# 	return json_resp({'result': True, 'link': f'/files/nonworker?file={doc.get("./templates/all.docx")}'})
+				_tmp = Company.objects.filter(company_name=_tmp[0].company_name)
+				try:
+					mkdir('tmp/'+_tmp[0].company_name)
+				except:
+					pass
+				for worker in _tmp:
+					copy("./templates/all.docx", f"./tmp/{_tmp[0].company_name}/all.docx")
+					doc = Document(worker.session)
+					print(f"./tmp/{worker.company_name}/all.docx")
+					doc.get(f"./tmp/{worker.company_name}/all.docx")
+				return json_resp({'result': True, 'link': f'/files/worker?file={zip_path('tmp/'+_tmp[0].company_name)}'})
+			else:
+				doc = Document(request.GET['session'])
+				try:
+					copy("./templates/all.docx", "./tmp/all.docx")
+				except:
+					pass
+				return json_resp({'result': True, 'link': f'/files/worker?file={doc.get("./tmp/all.docx")}'})
+		else:
+			return json_resp({'result': False})
+
+	@csrf_exempt
+	def ret_doc(self, request):
+		if request.GET['file']:
+			return FileResponse(request.GET['file'])
+			try:
+				remove(request.GET['file'])
+			except:
+				pass
+			if exists(request.GET['file'].split('.')[0]):
+				rmdir(request.GET['file'].split('.')[0])
+			return file
+		else:
+			return HttpResponse('Error')

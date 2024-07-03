@@ -31,4 +31,6 @@ urlpatterns = [
     path('quest/', main_module.questions),
     path('api/auth', api_module.auth),
     path('api/result', api_module.result),
+    path('api/getDoc', api_module.get_doc),
+    path('files/worker', api_module.ret_doc)
 ]

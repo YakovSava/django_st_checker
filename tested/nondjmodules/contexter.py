@@ -4,7 +4,6 @@ class Contexter:
 	SUPER_ADMIN_BUTTONS = '''<div class="buttons">
 			<button class="btn" onclick="adminDownload().then();">Скачать отчёт</button>
 			<button class="btn" onclick="toQuest();">Пройти опросник</button>
-			<button class="btn" onclick="removeCompany();">Удалить компанию</button>
 		</div>'''
 	ADMIN_BUTTONS = '''<div class="buttons">
 			<button class="btn" onclick="downloadAllCompany().then();">Скачать все документы</button>

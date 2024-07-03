@@ -20,29 +20,29 @@ class Document:
 		# Мне менее больно от этого
 		data = Company.objects.filter(session=self._session)
 		return {
-			"ФИО": data.fcs,
-			"фио": data.fcs,
+			"ФИО": data[0].fcs,
+			"фио": data[0].fcs,
 			"Дата протокола": strftime("%d.%m.%y"),
-			"Член1": data.fcs_commissions1,
-			"Член2": data.fcs_commissions2,
-			"Член3": data.fcs_commissions3,
-			"Д1": data.commisions_status1,
-			"Д2": data.commisions_status2,
-			"Д3": data.commisions_status3,
-			"Должность": data.status,
-			"Причина": data.reason,
-			"Компания": data.company_name,
+			"Член1": data[0].fcs_commissions1,
+			"Член2": data[0].fcs_commissions2,
+			"Член3": data[0].fcs_commissions3,
+			"Д1": data[0].commisions_status1,
+			"Д2": data[0].commisions_status2,
+			"Д3": data[0].commisions_status3,
+			"Должность": data[0].status,
+			"Причина": data[0].reason_for_check,
+			"Компания": data[0].company_name,
 			"номер программы": "20", # For example
-			"для кого": data.status+'а',
+			"для кого": data[0].status+'а',
 			"№": '1', # ???
 			"№2": '1', # ???????
-			"группа": data.electrical_safety_group,
-			"группаП": data.electrical_safety_group,
-			"Дата ЭБ": f"{randint(1, 30)}.{randint(1, 12).{randint(2025, 2027)}}", # For example
+			"группа": data[0].electrical_safety_group,
+			"группаП": data[0].electrical_safety_group,
+			"Дата ЭБ": f"{randint(1, 30)}.{randint(1, 12)}{randint(2025, 2027)}", # For example
 			"ЭНФ": "(энф?)",
-			"Инструктаж": data.reason_for_check,
-			"Дата ПЭБ": f"{randint(1, 30)}.{randint(1, 12).{randint(2025, 2027)}}", # For example
-			"Стаж": data.work_exp
+			"Инструктаж": data[0].reason_for_check,
+			"Дата ПЭБ": f"{randint(1, 30)}.{randint(1, 12)}{randint(2025, 2027)}", # For example
+			"Стаж": data[0].work_exp
 		}
 
 	def _replacement(self, words:dict, filename:str) -> str:
