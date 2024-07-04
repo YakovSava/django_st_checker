@@ -1,3 +1,0 @@
-Test write to file!
-Hello!!!!
-That's from RUST!
