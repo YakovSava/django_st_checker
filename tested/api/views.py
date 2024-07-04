@@ -11,14 +11,16 @@ from autorization.models import Company as CompanyData
 from nondjmodules.quest_validator import Validator
 from nondjmodules.former import Document
 from nondjmodules.zipper import zip_path
+from nondjmodules.getter import Getter, MIME
 
 def json_resp(dictionary:dict) -> str:
 	return HttpResponse(dumps(dictionary))
 
 class API:
 
-	def __init__(self, database:Users=Users):
+	def __init__(self, database:Users=Users, getter:Getter=Getter()):
 		self._db = database
+		self._get = getter
 		if not exists('tmp/'):
 			mkdir('tmp/')
 
@@ -149,7 +151,7 @@ class API:
 	@csrf_exempt
 	def ret_doc(self, request):
 		if request.GET['file']:
-			return FileResponse(request.GET['file'])
+			file = HttpResponse(self._get.get(request.GET['file']), content_type=eval(f'MIME.{request.GET["file"].split(".")[-1]}'))
 			try:
 				remove(request.GET['file'])
 			except:
