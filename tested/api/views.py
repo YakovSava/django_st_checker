@@ -56,16 +56,19 @@ class API:
 	def _to_normal_json(self, data) -> dict:
 		return loads(unquote(data['data']))
 
-	def _create_company(self, company_name:str, company_admin:str) -> None:
+	def _create_company(self, company_name:str, company_admin:str) -> list:
 		_tmp = CompanyData.objects.values('company_name').distinct()
-		print(list(map(lambda x: x['company_name'], _tmp)))
 		if company_name not in map(lambda x: x['company_name'], _tmp):
+			if len(list(map(lambda x: x['company_name'], _tmp))) == 3:
+				return [False, 'Нельзя зарегестрировать более 3-ёх компаний']
 			new_company = CompanyData(
 				company_name=company_name,
 				company_admin=company_admin,
 				is_super_admin=False,
 			)
 			new_company.save()
+			return [True]
+		return [True]
 
 	def _to_db(self, data:list, session:str) -> None:
 		new_rec = Company(
@@ -107,7 +110,9 @@ class API:
 		if all(validator_object.validate()):
 			answer_for_db = validator_object.for_db()
 			self._to_db(validator_object.return_data(), answer_for_db['session'])
-			self._create_company(answer_for_db['company'], answer_for_db['session'])
+			rsult = self._create_company(answer_for_db['company'], answer_for_db['session'])
+			if not rsult[0]:
+				return json_resp({'result': False, 'error': rsult[1]})
 			new_company = self._db(
 				name=answer_for_db['name'],
 				company=answer_for_db['company'],

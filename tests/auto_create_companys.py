@@ -52,8 +52,6 @@ def exsist_element(driver, id) -> bool:
 
 
 def main(driver):
-	good = 0
-	fail = 0
 	while True:
 
 		driver.get(url=url)
@@ -65,7 +63,7 @@ def main(driver):
 			universal_button = driver.find_element(By.ID, 'submit-button')
 			universal_button.click()
 			sleep(0.1)
-		# return
+		sleep(2)
 
 if __name__ == '__main__':
 	try:
